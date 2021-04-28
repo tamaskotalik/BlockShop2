@@ -1,0 +1,107 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BlockShop2"
+      xmlns:Models="clr-namespace:Models"
+      xmlns:lang="hu"
+      xmlns:System="clr-namespace:System;assembly=System.Runtime"
+      x:Class="BlockShop2.NewProduct"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="801"
+      Title="New Product">
+    <Page.Resources>
+        <local:VC_Percent_To_float x:Key="VC_Percent_To_float"/>
+        <local:VC_FT_To_int x:Key="VC_FT_To_int"/>
+    </Page.Resources>
+
+    <Grid x:Name="MainGrid" Background="#33000000">
+        <Grid.DataContext>
+            <local:NewProductDC>
+                <local:NewProductDC.product>
+                    <Models:Product/>
+                </local:NewProductDC.product>
+                <local:NewProductDC.price>
+                    <Models:Price/>
+                </local:NewProductDC.price>
+            </local:NewProductDC>
+        </Grid.DataContext>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Column="1" Grid.Row="1" >
+            <Border Margin="10,10,10,10" Opacity="100"  CornerRadius="15,15,15,15">
+            <StackPanel Background="White" Margin="5,5,5,5" Grid.IsSharedSizeScope="True" >
+
+                <TextBlock Text="Új termék felvétele" HorizontalAlignment="Center" Margin="0,10,0,8" FontWeight="Bold" FontStyle="Italic"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="A"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Termék név:" Margin="5,5,5,5"/>
+                    <TextBox x:Name="TBname" Grid.Column="1" Margin="5,5,5,5" Text="{Binding product.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="A"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Vonalkód:" Margin="5,5,5,5"/>
+                    <TextBox Name="TBVK" Grid.Column="1" Margin="5,5,5,5" Text="{Binding product.Barcode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" PreviewTextInput="With_PreviewTextInput"/>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="A"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Egység:" Margin="5,5,5,5"/>
+                    <ComboBox Name="CBunit" Grid.Column="1" Margin="5,5,5,5" Text="{Binding product.Unit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedIndex="0" >
+                        <System:String>kg</System:String>
+                        <System:String>db</System:String>
+                        <System:String>l</System:String>
+                    </ComboBox>
+                </Grid>
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="A"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Ár:" Margin="5,5,5,5"/>
+                        <TextBox Name="TBPrice" Grid.Column="1" Margin="5,5,5,5" Text="{Binding price.price, Converter={StaticResource VC_FT_To_int}, Mode=TwoWay, StringFormat=\{0:D\}, UpdateSourceTrigger=PropertyChanged}"  PreviewTextInput="With_PreviewTextInput" />
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="A"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Adó kulcs:" Margin="5,5,5,5"/>
+                        <TextBox Name="TBtaxrate" Grid.Column="1" Margin="5,5,5,5" Text="{Binding price.taxrate, Converter={StaticResource VC_Percent_To_float}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  PreviewTextInput="With_PreviewTextInput"/>
+                    </Grid>
+                    <Grid Margin="10,20,10,20">
+                        <Grid.ColumnDefinitions >
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="A" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" x:Name="Save" Click="Save_Click" Content="Mentés" MinWidth="50" MinHeight="20" Background="LightGreen"/>
+                        <Button Grid.Column="2" x:Name="Cancel" Click="Cancel_Click"  Content="Mégse" MinWidth="50" MinHeight="20" IsTabStop="False" Background="PaleVioletRed"/>
+                    </Grid>
+                </StackPanel>
+                <CheckBox x:Name="Next" Content="Következő termék bevitele" Margin="5,5,5,5"/>
+
+            </StackPanel>
+        </Border>
+        </StackPanel>
+    </Grid>
+</Page>

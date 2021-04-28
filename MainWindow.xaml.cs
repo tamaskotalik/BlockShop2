@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,16 @@ namespace BlockShop2
         public MainWindow()
         {
             InitializeComponent();
+            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("hu-HU");
+            Button b = new Button();
+
+            ShowPage(new NewProduct());
+        }
+
+        public void ShowPage(Page page)
+        {
+            Frame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
+            Frame.Navigate(page);
         }
     }
 }

@@ -5,8 +5,49 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BlockShop2"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Block Shop 2" Height="450" Width="800">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Menu  Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3">
+            <MenuItem Header="File" IsTabStop="False">
+                <MenuItem Header="Exit" />
+            </MenuItem>
+            <MenuItem Header="Login" IsTabStop="False"/>
+        </Menu>
+
+        <StackPanel  Grid.Column="0" Grid.Row="1">
+            <Button x:Name="G1" Content="Button"  HorizontalAlignment="Center" Margin="0,10,0,0"  VerticalAlignment="Top" RenderTransformOrigin="-0.039,0.385" Width="Auto"/>
+            <Label Content="Label" HorizontalAlignment="Left" Margin="5,346,0,0"  VerticalAlignment="Top" Width="247"/>
+            <Label Content="Label" HorizontalAlignment="Left" Margin="10,64,0,0"  VerticalAlignment="Top" Width="123"/>
+            <TextBox HorizontalAlignment="Left" Margin="12,95,0,0" Grid.Row="1" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            <Button Content="Button" HorizontalAlignment="Left" Margin="12,118,0,0" VerticalAlignment="Top" Width="245"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1"  Grid.Row="1">
+            <Label Content="Label" HorizontalAlignment="Left" Margin="144,37,0,0"  VerticalAlignment="Top" RenderTransformOrigin="0.519,0.56"/>
+            <TextBox HorizontalAlignment="Left" Margin="10,41,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsTabStop="False"/>
+            <ListBox Margin="5,35,5,43" SelectionMode="Multiple">
+                <Label Background="LightGreen" Content="Tétel vagyok" Width="243"/>
+            </ListBox>
+        </StackPanel>
+
+        <StackPanel Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <Button Content="Fizetve" Margin="10,10,10,10"/>
+        </StackPanel>
+
+        <Frame  Grid.ColumnSpan="2" Grid.RowSpan="3" Name="Frame" Panel.ZIndex="11"  Visibility="Visible">
+            
+        </Frame>
 
     </Grid>
 </Window>
