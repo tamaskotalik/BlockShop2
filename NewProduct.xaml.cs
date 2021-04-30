@@ -28,28 +28,53 @@ namespace BlockShop2
 
 
         public NewProductDC DC;
-        DispatcherTimer timer;
 
+        DispatcherTimer timer;
+        /// <summary>
+        /// Eseménykezelő page bezárásához
+        /// </summary>
         public event EventHandler OnFinishedEnty;
+
+
         public NewProduct()
         {
             InitializeComponent();
+
+
             Save.IsEnabled = false;
   
-            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("hu-HU");
             DC = new NewProductDC();
             DC.product = new Product();
             DC.price = new Price();
+
             MainGrid.DataContext = DC;
 
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(30);
             timer.Tick += new EventHandler(CheckData);
             timer.IsEnabled = true;
+
+
+            SetComboBox();
+        }
+
+
+        private void SetComboBox()
+        {
+            Controller c = new Controller();
+            var items = c.GetProducts();
+            ComboBoxName.Items.Clear();
+
+            foreach (var item in items)
+            {
+                ComboBoxName.Items.Add(item);
+            }
+            ComboBoxName.IsTextSearchCaseSensitive = true;
+            ComboBoxName.IsTextSearchEnabled = true; 
         }
 
         private void CheckData(object sender, EventArgs e)
-        {
+        {           
             Save.IsEnabled = (DC?.product.Name?.Length > 0) && (DC?.product.Unit?.Length > 0) && (DC?.price.price > 0);
         }
 
@@ -71,17 +96,60 @@ namespace BlockShop2
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            Controller c = new Controller();
-            c.AddProduct(DC.product,DC.price);
+            Controller c = new Controller();            
+            
+            if(ComboBoxName.SelectedItem == null)
+            {
+                DC.product.ProductId = 0;
+                var tmp = c.AddOrUpdate(DC.product, DC.price);
+                ComboBoxName.Items.Add(tmp);
+            }
+            else
+            {
+                var tmp = c.AddOrUpdate(DC.product, DC.price);
+            }
             DC = new NewProductDC();
             DC.product = new Product();
             DC.price = new Price();
             MainGrid.DataContext = DC;
+            if (!Next.IsChecked.Value)
+            {
+                FinishedEntry();
+            }
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             FinishedEntry();
+        }
+
+        private void TBname_KeyUp(object sender, KeyEventArgs e)
+        {
+            ;
+        }
+
+        private void TBname_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if ((Product)ComboBoxName.SelectedItem != null)
+            {
+                var tmpDc = new NewProductDC();
+                tmpDc.product = ((Product)ComboBoxName.SelectedItem);
+
+                var tmp = ((Product)ComboBoxName.SelectedItem).Prices;
+
+                if (tmp.Count > 0)
+                {
+                    tmpDc.price = tmp.Last();
+                }
+                else
+                {
+                    tmpDc.price = new Price();
+                }
+
+                DC = tmpDc;
+                MainGrid.DataContext = DC;
+            }
+ 
         }
     }
 

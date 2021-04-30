@@ -6,34 +6,56 @@
         xmlns:local="clr-namespace:BlockShop2"
         mc:Ignorable="d"
         Title="Block Shop 2" Height="450" Width="800">
-    <Grid>
+    <Grid x:Name="grid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
-
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="1*" />
+            <RowDefinition Name="rowx" Height="1*" SharedSizeGroup="C"/>
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Menu  Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3">
-            <MenuItem Header="File" IsTabStop="False">
-                <MenuItem Header="Exit" />
-            </MenuItem>
-            <MenuItem Header="Login" IsTabStop="False"/>
-        </Menu>
+        <StackPanel x:Name="panel1"  Grid.Column="0" Grid.Row="0">
+            <StackPanel x:Name="panel2">
+                <Button x:Name="G1" Content="Termékek kezelése"  HorizontalAlignment="Left" Padding="3,3,3,3" Margin="10,10,10,10"  VerticalAlignment="Top" Width="Auto" Click="G1_Click"/>
+                <Label Content="Label" HorizontalAlignment="Left" Margin="5,0,0,0"  VerticalAlignment="Top" Width="247"/>
+                <TextBox HorizontalAlignment="Left" Margin="12,0,0,0" Grid.Row="1" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <Button Content="Button" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" Width="245"/>
+            </StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <ScrollViewer Grid.Row="0" x:Name="scrollViewer" Height="Auto">
+                    <WrapPanel Width="Auto" Height="Auto">
+                        <Button HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" Width="500">
+                            <StackPanel>
+                                <TextBlock>Text</TextBlock>
+                                <TextBlock>Text</TextBlock>
+                            </StackPanel>
+                        </Button>
+                        <Button Content="Button" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" Width="500"/>
+                        <Button Content="Button" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" Width="500"/>
+                        <Button Content="Button" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" Width="500"/>
+                        <Button Content="Button" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" Width="500"/>
+                        <Button Content="Button" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" Width="500"/>
+                        <Button Content="Button" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" Width="500"/>
+                        <Button Content="Button" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" Width="500"/>
+                        <Button Content="Button" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" Width="500"/>
+                        <Button Content="Button" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" Width="500"/>
+                        <Button Content="Button" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" Width="500"/>
+                        <Button Content="Button" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" Width="500"/>
+                        <Button Content="Button" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" Width="500"/>
+                        <Button Content="Button" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" Width="500"/>
+                        <Button Content="Button" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" Width="500"/>
+                    </WrapPanel>
+                </ScrollViewer>
+            </Grid>
 
-        <StackPanel  Grid.Column="0" Grid.Row="1">
-            <Button x:Name="G1" Content="Button"  HorizontalAlignment="Center" Margin="0,10,0,0"  VerticalAlignment="Top" RenderTransformOrigin="-0.039,0.385" Width="Auto"/>
-            <Label Content="Label" HorizontalAlignment="Left" Margin="5,346,0,0"  VerticalAlignment="Top" Width="247"/>
-            <Label Content="Label" HorizontalAlignment="Left" Margin="10,64,0,0"  VerticalAlignment="Top" Width="123"/>
-            <TextBox HorizontalAlignment="Left" Margin="12,95,0,0" Grid.Row="1" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-            <Button Content="Button" HorizontalAlignment="Left" Margin="12,118,0,0" VerticalAlignment="Top" Width="245"/>
         </StackPanel>
 
-        <StackPanel Grid.Column="1"  Grid.Row="1">
+        <StackPanel Grid.Column="1"  Grid.Row="0">
             <Label Content="Label" HorizontalAlignment="Left" Margin="144,37,0,0"  VerticalAlignment="Top" RenderTransformOrigin="0.519,0.56"/>
             <TextBox HorizontalAlignment="Left" Margin="10,41,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsTabStop="False"/>
             <ListBox Margin="5,35,5,43" SelectionMode="Multiple">
@@ -41,13 +63,16 @@
             </ListBox>
         </StackPanel>
 
-        <StackPanel Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal">
+        <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal">
             <Button Content="Fizetve" Margin="10,10,10,10"/>
         </StackPanel>
 
-        <Frame  Grid.ColumnSpan="2" Grid.RowSpan="3" Name="Frame" Panel.ZIndex="11"  Visibility="Visible">
-            
-        </Frame>
+
+
+
+        <Frame  Grid.ColumnSpan="2" Grid.RowSpan="3" Name="Frame" Panel.ZIndex="11"  Visibility="Hidden"/>
+
+
 
     </Grid>
 </Window>

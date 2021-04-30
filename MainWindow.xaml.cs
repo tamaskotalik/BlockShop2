@@ -21,19 +21,32 @@ namespace BlockShop2
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        NewProduct NewProductPage;
         public MainWindow()
         {
             InitializeComponent();
-            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("hu-HU");
-            Button b = new Button();
 
-            ShowPage(new NewProduct());
+            NewProductPage = new NewProduct();
+            NewProductPage.OnFinishedEnty += new EventHandler(NewProductPage_OnFinishedEnty);
+            Frame.Visibility = Visibility.Collapsed;
+            ShowPage(NewProductPage);
+        }
+
+        private void NewProductPage_OnFinishedEnty(object sender, EventArgs e)
+        {
+            Frame.Visibility = Visibility.Collapsed;
         }
 
         public void ShowPage(Page page)
         {
             Frame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
             Frame.Navigate(page);
+        }
+
+        private void G1_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Visibility = Visibility.Visible;
         }
     }
 }

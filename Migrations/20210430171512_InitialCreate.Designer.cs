@@ -9,7 +9,7 @@ using Models;
 namespace BlockShop2.Migrations
 {
     [DbContext(typeof(BlockShopContext))]
-    [Migration("20210428200805_InitialCreate")]
+    [Migration("20210430171512_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

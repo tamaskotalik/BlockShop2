@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Models;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace BlockShop2
 {
@@ -16,20 +18,81 @@ namespace BlockShop2
            
         }
 
-        public bool AddProduct(Product product, Price price)
-        {
-            int ret;
+        public Product AddOrUpdate(Product product, Price price)
+        {           
             if(product !=null && price != null)
-            {
-                product.Prices.Add(price);
+            {                
                 using (var db = new BlockShopContext())
                 {
-                    db.Products.Add(product);
-                    ret = db.SaveChanges();
-                }
-                return ret > 0;
+                    var result = db.Products.Include(p => p.Prices).SingleOrDefault(p => p.ProductId == product.ProductId);
+ /*                   if (result.Name != product.Name)
+                    {
+                        result = null;
+   */  //               }
+                    if(result != null)
+                    {
+                        result.Name = product.Name;
+                        result.Unit = product.Unit;
+                        result.Barcode = product.Barcode != "" ? product.Barcode : result.Barcode;
+                        price.PriceId = 0;
+                        price.From = DateTime.Now;
+                        result.Prices.Add(price);
+                        db.SaveChanges();
+                        return result;
+                    }
+                    else
+                    {                        
+                        product.ProductId = 0;
+                        product.Prices.Clear();
+                        var result2 = db.Products.Add(product);
+                        price.PriceId = 0;
+                        price.From = DateTime.Now;
+                        result2.Entity.Prices.Add(price);
+                        db.SaveChanges();
+                        return result2.Entity;
+                    }
+                }                
             }
-            return false;
+            return null;
+        }
+
+        public Product GetProductByName(string name)
+        {
+            Product ret = null;
+            using (var db = new BlockShopContext()){
+                ret = db.Products.Include(p => p.Prices).First(p => p.Name.Equals(name));
+            }
+            return ret;           
+        }
+
+        public Product GetProductById(int id)
+        {
+            Product ret = null;
+            using (var db = new BlockShopContext())
+            {
+                ret = db.Products.Include(p => p.Prices).First(p => p.ProductId.Equals(id));
+            }
+            return ret;
+        }
+        
+        public List<Product> GetProductsbyName(string name)
+        {
+            List<Product> ret = null;
+            using (var db = new BlockShopContext())
+            {
+                ret = db.Products.Where(p => p.Name.StartsWith(name)).ToList();                
+            }
+            return ret;
+        }
+
+        public List<Product> GetProducts()
+        {
+            List<Product> ret = null;
+            using (var db = new BlockShopContext())
+            {
+                ret = db.Products.Include(p => p.Prices).ToList();
+            }
+            return ret;
         }
 
     }
