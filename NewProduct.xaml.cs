@@ -27,7 +27,7 @@ namespace BlockShop2
     {
 
 
-        public NewProductDC DC;
+        public ProductDataContext DC;
 
         DispatcherTimer timer;
         /// <summary>
@@ -43,7 +43,7 @@ namespace BlockShop2
 
             Save.IsEnabled = false;
   
-            DC = new NewProductDC();
+            DC = new ProductDataContext();
             DC.product = new Product();
             DC.price = new Price();
 
@@ -108,7 +108,7 @@ namespace BlockShop2
             {
                 var tmp = c.AddOrUpdate(DC.product, DC.price);
             }
-            DC = new NewProductDC();
+            DC = new ProductDataContext();
             DC.product = new Product();
             DC.price = new Price();
             MainGrid.DataContext = DC;
@@ -132,7 +132,7 @@ namespace BlockShop2
         {
             if ((Product)ComboBoxName.SelectedItem != null)
             {
-                var tmpDc = new NewProductDC();
+                var tmpDc = new ProductDataContext();
                 tmpDc.product = ((Product)ComboBoxName.SelectedItem);
 
                 var tmp = ((Product)ComboBoxName.SelectedItem).Prices;
@@ -150,35 +150,6 @@ namespace BlockShop2
                 MainGrid.DataContext = DC;
             }
  
-        }
-    }
-
-    public class VC_FT_To_int : IValueConverter
-    {
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            int ret = 0;
-            var b = int.TryParse(value.ToString().Replace("Ft", "").Replace(" ", ""), out ret);
-            return ret;
-        }
-
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return value.ToString() + " Ft";
-        }
-    }
-    public class VC_Percent_To_float : IValueConverter
-    {
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            float ret = 0;
-            var b = float.TryParse(value.ToString().Replace("%", "").Replace(" ", ""), out ret);
-            return ret;
-        }
-
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return value.ToString() + " %";
         }
     }
 }

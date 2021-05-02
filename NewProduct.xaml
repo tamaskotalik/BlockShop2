@@ -18,14 +18,14 @@
 
     <Grid x:Name="MainGrid" Background="#33000000">
         <Grid.DataContext>
-            <local:NewProductDC>
-                <local:NewProductDC.product>
+            <local:ProductDataContext>
+                <local:ProductDataContext.product>
                     <Models:Product/>
-                </local:NewProductDC.product>
-                <local:NewProductDC.price>
+                </local:ProductDataContext.product>
+                <local:ProductDataContext.price>
                     <Models:Price/>
-                </local:NewProductDC.price>
-            </local:NewProductDC>
+                </local:ProductDataContext.price>
+            </local:ProductDataContext>
         </Grid.DataContext>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />

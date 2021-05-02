@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace Models
 {
@@ -18,7 +19,7 @@ namespace Models
         // The following configures EF to create a Sqlite database file as `C:\blogging.db`.
         // For Mac or Linux, change this to `/tmp/blogging.db` or any other absolute path.
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlite(@"Data Source=c:/test/BlockShopDB3.db");
+            => options.UseSqlite(@"Data Source=BlockShopDB3.db");
     }
 
     public class Price
@@ -48,6 +49,23 @@ namespace Models
         public List<Price> Prices { get; } = new List<Price>();
         public List<BlockItem> BlockItems { get; } = new List<BlockItem>();
 
+        public Price LastPrice
+        {
+            get
+            {
+                return Prices.Last();
+            }    
+        }
+
+        public string LastPriceAndUnit
+        {
+            get
+            {
+                return Prices.Last().price.ToString() + " Ft/" + Unit;
+            }
+        }
+
+
         public override string ToString()
         {
             return Name;
@@ -65,6 +83,14 @@ namespace Models
         public Product Product { get; set; }
 
         public double Volume { get; set; }
+
+        public string VolumeToString
+        {
+            get
+            {
+                return Volume.ToString("F2") + " " + Product.Unit;
+            }
+        }
 
     }
 

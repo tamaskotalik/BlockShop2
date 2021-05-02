@@ -4,8 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BlockShop2"
+        xmlns:Models="clr-namespace:Models"
         mc:Ignorable="d"
         Title="Block Shop 2" Height="450" Width="800">
+    <Window.Resources>
+        <local:VC_FT_To_int x:Key="VC_FT_To_int"/>
+    </Window.Resources>
     <Grid x:Name="grid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
@@ -16,55 +20,93 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <StackPanel x:Name="panel1"  Grid.Column="0" Grid.Row="0">
-            <StackPanel x:Name="panel2">
+        <Grid Grid.Column="0" Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel x:Name="panel2" Grid.Row="0">
                 <Button x:Name="G1" Content="Termékek kezelése"  HorizontalAlignment="Left" Padding="3,3,3,3" Margin="10,10,10,10"  VerticalAlignment="Top" Width="Auto" Click="G1_Click"/>
-                <Label Content="Label" HorizontalAlignment="Left" Margin="5,0,0,0"  VerticalAlignment="Top" Width="247"/>
-                <TextBox HorizontalAlignment="Left" Margin="12,0,0,0" Grid.Row="1" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <Button Content="Button" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" Width="245"/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Termék név / vonalkód:" HorizontalAlignment="Left" Margin="5,0,0,0"  VerticalAlignment="Top"/>
+                    <TextBox Name="ProductNameORBarcode" Grid.Column="1" Grid.Row="0" Margin="10,0,10,0" Text="" VerticalAlignment="Center" KeyUp="ProductNameORBarcode_KeyUp"/>
+                    <Label Grid.Column="0" Grid.Row="1" Content="Mennyiség:" HorizontalAlignment="Left" Margin="5,0,0,0"  VerticalAlignment="Top"/>
+                    <TextBox Grid.Column="1" Grid.Row="1" Margin="10,0,10,0" Text="1" VerticalAlignment="Center" PreviewTextInput="With_PreviewTextInput" Name="VolumeTextBox"/>
+
+                </Grid>
             </StackPanel>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <ScrollViewer Grid.Row="0" x:Name="scrollViewer" Height="Auto">
-                    <WrapPanel Width="Auto" Height="Auto">
-                        <Button HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" Width="500">
-                            <StackPanel>
-                                <TextBlock>Text</TextBlock>
-                                <TextBlock>Text</TextBlock>
-                            </StackPanel>
-                        </Button>
-                        <Button Content="Button" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" Width="500"/>
-                        <Button Content="Button" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" Width="500"/>
-                        <Button Content="Button" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" Width="500"/>
-                        <Button Content="Button" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" Width="500"/>
-                        <Button Content="Button" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" Width="500"/>
-                        <Button Content="Button" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" Width="500"/>
-                        <Button Content="Button" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" Width="500"/>
-                        <Button Content="Button" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" Width="500"/>
-                        <Button Content="Button" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" Width="500"/>
-                        <Button Content="Button" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" Width="500"/>
-                        <Button Content="Button" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" Width="500"/>
-                        <Button Content="Button" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" Width="500"/>
-                        <Button Content="Button" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" Width="500"/>
-                        <Button Content="Button" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Top" Width="500"/>
-                    </WrapPanel>
-                </ScrollViewer>
-            </Grid>
 
-        </StackPanel>
+            <ScrollViewer Grid.Row="1" x:Name="scrollViewer">
+                <WrapPanel Name="ProductBtnList" Width="{Binding ActualWidth, ElementName=scrollViewer, Mode=OneWay}" Height="Auto" Margin="10,0,10,0">
 
-        <StackPanel Grid.Column="1"  Grid.Row="0">
-            <Label Content="Label" HorizontalAlignment="Left" Margin="144,37,0,0"  VerticalAlignment="Top" RenderTransformOrigin="0.519,0.56"/>
-            <TextBox HorizontalAlignment="Left" Margin="10,41,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsTabStop="False"/>
-            <ListBox Margin="5,35,5,43" SelectionMode="Multiple">
-                <Label Background="LightGreen" Content="Tétel vagyok" Width="243"/>
+                </WrapPanel>
+            </ScrollViewer>
+        </Grid>
+
+        <Grid Name="CurrentBlock" Grid.Column="1"  Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid.DataContext>
+                <Models:Block>
+                </Models:Block>
+            </Grid.DataContext>
+            
+            <StackPanel Grid.Row="0">
+                <Button Name="RemoveItem" Content="Termék törlése a blokkról" IsEnabled="False"  HorizontalAlignment="Right" Padding="3,3,3,3" Margin="10,10,10,10"  VerticalAlignment="Top" Width="Auto" Click="RemoveItem_Click"/>
+                <TextBlock Text="Aktuális blokk elemei :" />
+            </StackPanel>
+            
+            <ListBox x:Name="BlockListBox" ItemsSource="{Binding BlockItems}" Grid.Row="1" SelectionChanged="listBox_SelectionChanged" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Width="{Binding ActualWidth, ElementName=BlockListBox, Mode=OneWay}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="{Binding Product.Name}"/>
+                            <TextBlock Grid.Column="1" Text="{Binding VolumeToString}" TextAlignment="Right"/>
+                            <TextBlock Grid.Column="2" Text="{Binding Product.LastPriceAndUnit}" TextAlignment="Right"  Margin="5,0,10,0"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
             </ListBox>
-        </StackPanel>
 
-        <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal">
-            <Button Content="Fizetve" Margin="10,10,10,10"/>
+            <Grid Name="CurrentBlockSummary" Grid.Row="2" >
+                <Grid.DataContext>
+                    <local:BlockSumms/>
+                </Grid.DataContext>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="Végösszeg:  "/>
+                <TextBlock Grid.Column="1" Grid.Row="0"  TextAlignment="Right" Text="{Binding SumPrice, Converter={StaticResource VC_FT_To_int}}"/>
+                <TextBlock Grid.Column="0" Grid.Row="1" Text="Ebből adó:  "/>
+                <TextBlock Grid.Column="1" Grid.Row="1"  TextAlignment="Right" Text="{Binding SumTax, Converter={StaticResource VC_FT_To_int}}"/>
+            </Grid>
+        </Grid>
+
+        <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Name="Fizetve" Content="Fizetve" Margin="10,10,10,10" Click="Fizetve_Click"/>
         </StackPanel>
 
 
