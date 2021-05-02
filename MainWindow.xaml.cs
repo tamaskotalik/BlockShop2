@@ -48,12 +48,19 @@ namespace BlockShop2
             ShowPage(NewProductPage);
         }
 
-
+        /// <summary>
+        /// Termék gombok létrehozása és panelhez adása
+        /// </summary>
         private void BuildProductButtonList()
         {
             BuildProductButtonList("", "");
         }
 
+        /// <summary>
+        /// Termék gombok létrehozása és panelhez adása
+        /// </summary>
+        /// <param name="name">Név paraméter ha nem üres akkor ez alapján rendezve és szűrve kerülnek a gombok a panelre</param>
+        /// <param name="barcode">Vonalkód paraméter ha nem üres akkor ez alapján kerülnek rendezve és szűrve a gombok a panelre</param>
         private void BuildProductButtonList(string name, string barcode)
         {
 
@@ -89,6 +96,11 @@ namespace BlockShop2
 
         }
 
+        /// <summary>
+        /// Termék gombra kattintás eseménykezelő
+        /// </summary>
+        /// <param name="sender">A termék adatai</param>
+        /// <param name="e"></param>
         private void ProductBtnClicked(object sender, EventArgs e)
         {
             if (VolumeTextBox.Text != "")
@@ -110,6 +122,9 @@ namespace BlockShop2
             }
         }
 
+        /// <summary>
+        /// A végösszeg és az össesített adó kiszámítása
+        /// </summary>
         private void RecalculateSumms()
         {
             var tmpBlockSumm = new BlockSumms();
@@ -124,35 +139,60 @@ namespace BlockShop2
             CurrentBlockSummary.DataContext = BlockSumms;
         }
 
+        /// <summary>
+        /// Aktuális blok updatelése
+        /// </summary>
         private void UpdateList()
         {
             CurrentBlock.DataContext = null;
             CurrentBlock.DataContext = Block;
         }
 
+        /// <summary>
+        /// Új termék bevitel befelyezve eseménykezelő
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NewProductPage_OnFinishedEnty(object sender, EventArgs e)
         {
             Frame.Visibility = Visibility.Collapsed;
             BuildProductButtonList();
         }
 
+        /// <summary>
+        /// Oldal megjelenítése
+        /// </summary>
+        /// <param name="page">Megjelenítendő oldal</param>
         public void ShowPage(Page page)
         {
             Frame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
             Frame.Navigate(page);
         }
 
+        /// <summary>
+        /// Eseménykezelő a termék kezelése gombhoz
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void G1_Click(object sender, RoutedEventArgs e)
         {
             Frame.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// Regex csak számokhoz
+        /// </summary>
         private static readonly Regex _regex = new Regex(@"[^0-9]");
         private static bool IsTextAllowed(string text)
         {
             return _regex.IsMatch(text);
         }
 
+        /// <summary>
+        /// Eldönti hogy a kapott szöveg double-vá konvertálható e
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
         private bool IsDouble(string s)
         {
             if (s.Contains(','))
@@ -194,7 +234,11 @@ namespace BlockShop2
             e.Handled = !IsDouble(e.Text);
         }
 
-
+        /// <summary>
+        /// Eldönti hogy a kapott szöveg csak számokból áll e
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
         private bool ContainsOnlyNumbers(string s)
         {
             bool ret = true;
@@ -208,7 +252,14 @@ namespace BlockShop2
             return ret;
         }
 
+
         private string prevText = "";
+
+        /// <summary>
+        /// Eseménykezelő 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ProductNameORBarcode_KeyUp(object sender, KeyEventArgs e)
         {
             if(prevText != ProductNameORBarcode.Text)
@@ -226,19 +277,31 @@ namespace BlockShop2
 
             }
         }
-
+        /// <summary>
+        /// Blok elem kijelölés változás eseménykezlő, ha kijelölés történik a törlés gomb aktívvá válik
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void listBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             RemoveItem.IsEnabled = BlockListBox.SelectedItem != null;
         }
-
+        /// <summary>
+        /// Blok elem törlése eseménykezelő 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RemoveItem_Click(object sender, RoutedEventArgs e)
         {
             Block.BlockItems.Remove((Models.BlockItem)BlockListBox.SelectedItem);
             UpdateList();
             RecalculateSumms();
         }
-
+        /// <summary>
+        /// Fizetve gomb eseménykezelő blokk megjelenítése és (még nem implementált) blokk adatbázisba mentése
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Fizetve_Click(object sender, RoutedEventArgs e)
         {
             var tmp = new ShowPrintBlock(Block);

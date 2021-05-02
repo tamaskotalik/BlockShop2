@@ -20,22 +20,29 @@ using Models;
 namespace BlockShop2
 {
     /// <summary>
-    /// Interaction logic for Page1.xaml
+    /// Új termék felvétele / módosítása oldal osztálya
     /// </summary>
     /// 
     public partial class NewProduct : Page
     {
 
-
+        /// <summary>
+        /// Adat contexus a databindigekhez
+        /// </summary>
         public ProductDataContext DC;
-
+        /// <summary>
+        /// Időzítő az adatok ellenőrzéséhez mentés gomb elérhetővé tételéhez
+        /// </summary>
         DispatcherTimer timer;
+
         /// <summary>
         /// Eseménykezelő page bezárásához
         /// </summary>
         public event EventHandler OnFinishedEnty;
 
-
+        /// <summary>
+        /// Construktor és inicializálások
+        /// </summary>
         public NewProduct()
         {
             InitializeComponent();
@@ -58,7 +65,9 @@ namespace BlockShop2
             SetComboBox();
         }
 
-
+        /// <summary>
+        /// Termék név kombó box beállítása
+        /// </summary>
         private void SetComboBox()
         {
             Controller c = new Controller();
@@ -72,28 +81,55 @@ namespace BlockShop2
             ComboBoxName.IsTextSearchCaseSensitive = true;
             ComboBoxName.IsTextSearchEnabled = true; 
         }
-
+        /// <summary>
+        /// Mentés gomb elérhetővé tétele
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CheckData(object sender, EventArgs e)
         {           
             Save.IsEnabled = (DC?.product.Name?.Length > 0) && (DC?.product.Unit?.Length > 0) && (DC?.price.price > 0);
         }
-
+        /// <summary>
+        /// Csak számok regex minta
+        /// </summary>
         private static readonly Regex _regex = new Regex(@"[^0-9]");
+
+        /// <summary>
+        /// Kapott szöveg alapján döntés hogy engedélyezett e (_regex minta felhasználásával)
+        /// </summary>
+        /// <param name="text">Ellenőrizendő szöveg</param>
+        /// <returns></returns>
         private static bool IsTextAllowed(string text)
         {
             return _regex.IsMatch(text);
         }
 
+
+        /// <summary>
+        /// Eseménykezelő a szöveg bevitel előtti ellenőrzéséhez
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void With_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
             e.Handled = IsTextAllowed(e.Text);
         }
 
+        /// <summary>
+        /// Eseménykezelő hívása ablak bezárásához
+        /// </summary>
         public void FinishedEntry()
         {
             OnFinishedEnty?.Invoke(this, new EventArgs());
         }
 
+
+        /// <summary>
+        /// Mentés gomb eseménykezelője
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             Controller c = new Controller();            
@@ -117,7 +153,11 @@ namespace BlockShop2
                 FinishedEntry();
             }
         }
-
+        /// <summary>
+        /// Mégse gomb eseménykezelője
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             FinishedEntry();
@@ -127,7 +167,11 @@ namespace BlockShop2
         {
             ;
         }
-
+        /// <summary>
+        /// Név combobox selectionchanged eseménykezelője
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TBname_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if ((Product)ComboBoxName.SelectedItem != null)
