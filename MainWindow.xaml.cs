@@ -70,7 +70,7 @@ namespace BlockShop2
             if(barcode.Length > 0)
             {
                 var Matches = from p in ProductList
-                              where p.Barcode.Equals(barcode)
+                              where p.Barcode == barcode
                               orderby p.Name
                               select p;
                 ProductList = Matches.ToList();
