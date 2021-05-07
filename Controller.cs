@@ -7,6 +7,7 @@ using Models;
 using Microsoft.EntityFrameworkCore;
 
 
+
 namespace BlockShop2
 {
     public class Controller
@@ -25,10 +26,7 @@ namespace BlockShop2
                 using (var db = new BlockShopContext())
                 {
                     var result = db.Products.Include(p => p.Prices).SingleOrDefault(p => p.ProductId == product.ProductId);
- /*                   if (result.Name != product.Name)
-                    {
-                        result = null;
-   */  //               }
+
                     if(result != null)
                     {
                         result.Name = product.Name;
@@ -94,6 +92,16 @@ namespace BlockShop2
             }
             return ret;
         }
+        public Block SaveBlock(Block block)
+        {
+            using (var db = new BlockShopContext())
+            {
+                block.Date = DateTime.Now;
+                db.ChangeTracker.TrackGraph(block, node => node.Entry.State = !node.Entry.IsKeySet ? EntityState.Added : EntityState.Unchanged);
 
+                db.SaveChanges();
+                return block;
+            }
+        }
     }
 }

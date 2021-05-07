@@ -37,18 +37,26 @@ namespace BlockShop2
 
             Controller = new Controller();
 
-            Block = new Models.Block();
-            CurrentBlock.DataContext = Block;
+            InitDataContext();
 
             BuildProductButtonList();
 
-            BlockSumms = new BlockSumms();
-            CurrentBlockSummary.DataContext = BlockSumms;
-
+ 
             NewProductPage = new NewProduct();
             NewProductPage.OnFinishedEnty += new EventHandler(NewProductPage_OnFinishedEnty);
             Frame.Visibility = Visibility.Collapsed;
             ShowPage(NewProductPage);
+        }
+
+        public void InitDataContext()
+        {
+
+            Block = new Models.Block();
+            CurrentBlock.DataContext = Block;
+
+            BlockSumms = new BlockSumms();
+            CurrentBlockSummary.DataContext = BlockSumms;
+
         }
 
         /// <summary>
@@ -161,7 +169,6 @@ namespace BlockShop2
             Frame.Visibility = Visibility.Collapsed;
             BuildProductButtonList();
         }
-
         /// <summary>
         /// Oldal megjelenítése
         /// </summary>
@@ -307,9 +314,21 @@ namespace BlockShop2
         /// <param name="e"></param>
         private void Fizetve_Click(object sender, RoutedEventArgs e)
         {
-            var tmp = new ShowPrintBlock(Block);
+           
+
+            var contorller = new Controller();
+
+            var b = contorller.SaveBlock(Block);
+            var tmp = new ShowPrintBlock(b);
+            tmp.OnFinishedPrint += new EventHandler(CloseModal);
             Frame.Navigate(tmp);
             Frame.Visibility = Visibility.Visible;
+        }
+
+        private void CloseModal(object sender, EventArgs e)
+        {
+            Frame.Visibility = Visibility.Collapsed;
+            InitDataContext();
         }
     }
 }

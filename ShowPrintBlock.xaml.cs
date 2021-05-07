@@ -12,7 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using CefSharp;
 
 namespace BlockShop2
 {
@@ -20,7 +19,8 @@ namespace BlockShop2
     /// Interaction logic for ShowPrintBlock.xaml
     /// </summary>
     public partial class ShowPrintBlock : Page
-    {        
+    {
+        public event EventHandler OnFinishedPrint;
         public ShowPrintBlock()
         {
             InitializeComponent();            
@@ -28,37 +28,32 @@ namespace BlockShop2
 
         public ShowPrintBlock(Models.Block actblock)
         {
-            InitializeComponent();
-            double sum = 0;
-            double summtax = 0;
+            InitializeComponent(); 
             string text = LoadHeader();
+            text += "<table style=\"width: 100 % \">";
 
-            if(actblock != null)
+            double summ = 0;
+
+            if (actblock != null)
             {
                 foreach (var item in actblock.BlockItems)
                 {
-                    text += "<div>" + item.Product.Name + " " + item.Product.LastPrice.price.ToString() + " " + "</div>";
+                    text += "<tr>";
+                    summ += (item.Product.LastPrice.price * item.Volume);
+                    text += "<td>" + item.Product.Name + "</td><td>" + item.Volume + item.Product.Unit + "</td><td>" + (item.Product.LastPrice.price * item.Volume).ToString() + " Ft " + "</td>";                    
+                    text += "</tr>";
                 }
             }
+            text += "<tr>";
+            text += "<td> Összesen " + "</td><td>" + "</td><td>"+ summ +  " Ft " + "</td>";
+            text += "</tr>";
+            text += "</table>";
+            text += "A számla sorszáma: " + actblock.BlockID;
+            text += "<br>Dátum: " + DateTime.Now.ToString();
             text += LoadFooter();
             Browser.Width = 400;
             Browser.NavigateToString(text);
         }
-/*
-        public static void Send(Key key)
-        {
-            if (Keyboard.PrimaryDevice != null)
-            {
-                if (Keyboard.PrimaryDevice.ActiveSource != null)
-                {
-                    var e1 = new KeyEventArgs(Keyboard.PrimaryDevice, Keyboard.PrimaryDevice.ActiveSource, 0, Key.Down) {
-                        RoutedEvent = Keyboard.KeyDownEvent
-                    };
-                    e1.
-                    InputManager.Current.ProcessInput(e1);
-                }
-            }
-        }*/
 
         public string LoadHeader()
         {
@@ -73,10 +68,11 @@ namespace BlockShop2
         private void Print_Click(object sender, RoutedEventArgs e)
         {
             Browser.Focus();
-        /*    var e2 = new RoutedEventArgs()
-            Browser.RaiseEvent()
-            Send(Key.LeftCtrl);
-            Send(Key.P);*/
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            OnFinishedPrint?.Invoke(this,e);
         }
     }
 }

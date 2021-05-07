@@ -4,8 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BlockShop2" 
-      xmlns:wpf="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
-      xmlns:cef="clr-namespace:CefSharp;assembly=CefSharp.Core"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ShowPrintBlock">
@@ -16,12 +14,12 @@
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
             <RowDefinition Height="4*" />
-            <RowDefinition Height="1*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <!--<wpf:ChromiumWebBrowser x:Name="Browser" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="3"></wpf:ChromiumWebBrowser>-->
-        <WebBrowser Name="Browser" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
-        <Button Name="Print" Content="Nyomtatás" Grid.Column="2" Grid.Row="0" Click="Print_Click"/>
+        <WebBrowser Name="Browser" Grid.Column="1" Grid.Row="0" Margin="10,10,10,10"/>
+        <Label Grid.Row="1" Grid.Column="1" Content="Nyomtatás CTRL + P" HorizontalAlignment="Center" VerticalAlignment="Stretch" Background="#F7FFFFFF" FontWeight="Bold" FontStyle="Italic"/>
+        <Button Content="Bezárás"  Name="Close" Click="Close_Click" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5,5,5,5" Padding="5,5,5,5" />
     </Grid>
 </Page>
