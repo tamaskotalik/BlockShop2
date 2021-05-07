@@ -6,6 +6,10 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Users\Acer\Source\Repos\tamaskotalik\BlockShop2\BlockShop2.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="CefSharp.Wpf.NETCore" Version="89.0.170" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.5" />

@@ -32,6 +32,9 @@ namespace BlockShop2
         {
             InitializeComponent();
 
+            var db = new  Models.BlockShopContext();
+            db.CreateDB();
+
             Controller = new Controller();
 
             Block = new Models.Block();

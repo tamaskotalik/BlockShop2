@@ -1,0 +1,287 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BlockShop2</name>
+    </assembly>
+    <members>
+        <member name="T:BlockShop2.App">
+            <summary>
+            Interaction logic for App.xaml
+            </summary>
+            <summary>
+            App
+            </summary>
+        </member>
+        <member name="M:BlockShop2.App.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="M:BlockShop2.App.Main">
+            <summary>
+            Application Entry Point.
+            </summary>
+        </member>
+        <member name="T:BlockShop2.DataBtn">
+            <summary>
+            Interaction logic for DataBtn.xaml
+            </summary>
+            <summary>
+            DataBtn
+            </summary>
+        </member>
+        <member name="M:BlockShop2.DataBtn.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:BlockShop2.MainWindow">
+            <summary>
+            Interaction logic for MainWindow.xaml
+            </summary>
+            <summary>
+            MainWindow
+            </summary>
+        </member>
+        <member name="M:BlockShop2.MainWindow.BuildProductButtonList">
+            <summary>
+            Termék gombok létrehozása és panelhez adása
+            </summary>
+        </member>
+        <member name="M:BlockShop2.MainWindow.BuildProductButtonList(System.String,System.String)">
+            <summary>
+            Termék gombok létrehozása és panelhez adása
+            </summary>
+            <param name="name">Név paraméter ha nem üres akkor ez alapján rendezve és szűrve kerülnek a gombok a panelre</param>
+            <param name="barcode">Vonalkód paraméter ha nem üres akkor ez alapján kerülnek rendezve és szűrve a gombok a panelre</param>
+        </member>
+        <member name="M:BlockShop2.MainWindow.ProductBtnClicked(System.Object,System.EventArgs)">
+            <summary>
+            Termék gombra kattintás eseménykezelő
+            </summary>
+            <param name="sender">A termék adatai</param>
+            <param name="e"></param>
+        </member>
+        <member name="M:BlockShop2.MainWindow.RecalculateSumms">
+            <summary>
+            A végösszeg és az össesített adó kiszámítása
+            </summary>
+        </member>
+        <member name="M:BlockShop2.MainWindow.UpdateList">
+            <summary>
+            Aktuális blok updatelése
+            </summary>
+        </member>
+        <member name="M:BlockShop2.MainWindow.NewProductPage_OnFinishedEnty(System.Object,System.EventArgs)">
+            <summary>
+            Új termék bevitel befelyezve eseménykezelő
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:BlockShop2.MainWindow.ShowPage(System.Windows.Controls.Page)">
+            <summary>
+            Oldal megjelenítése
+            </summary>
+            <param name="page">Megjelenítendő oldal</param>
+        </member>
+        <member name="M:BlockShop2.MainWindow.G1_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Eseménykezelő a termék kezelése gombhoz
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="F:BlockShop2.MainWindow._regex">
+            <summary>
+            Regex csak számokhoz
+            </summary>
+        </member>
+        <member name="M:BlockShop2.MainWindow.IsDouble(System.String)">
+            <summary>
+            Eldönti hogy a kapott szöveg double-vá konvertálható e
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BlockShop2.MainWindow.ContainsOnlyNumbers(System.String)">
+            <summary>
+            Eldönti hogy a kapott szöveg csak számokból áll e
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BlockShop2.MainWindow.ProductNameORBarcode_KeyUp(System.Object,System.Windows.Input.KeyEventArgs)">
+            <summary>
+            Eseménykezelő 
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:BlockShop2.MainWindow.listBox_SelectionChanged(System.Object,System.Windows.Controls.SelectionChangedEventArgs)">
+            <summary>
+            Blok elem kijelölés változás eseménykezlő, ha kijelölés történik a törlés gomb aktívvá válik
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:BlockShop2.MainWindow.RemoveItem_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Blok elem törlése eseménykezelő 
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:BlockShop2.MainWindow.Fizetve_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Fizetve gomb eseménykezelő blokk megjelenítése és (még nem implementált) blokk adatbázisba mentése
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:BlockShop2.MainWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:BlockShop2.NewProduct">
+            <summary>
+            Új termék felvétele / módosítása oldal osztálya
+            </summary>
+            
+            <summary>
+            NewProduct
+            </summary>
+        </member>
+        <member name="F:BlockShop2.NewProduct.DC">
+            <summary>
+            Adat contexus a databindigekhez
+            </summary>
+        </member>
+        <member name="F:BlockShop2.NewProduct.timer">
+            <summary>
+            Időzítő az adatok ellenőrzéséhez mentés gomb elérhetővé tételéhez
+            </summary>
+        </member>
+        <member name="E:BlockShop2.NewProduct.OnFinishedEnty">
+            <summary>
+            Eseménykezelő page bezárásához
+            </summary>
+        </member>
+        <member name="M:BlockShop2.NewProduct.#ctor">
+            <summary>
+            Construktor és inicializálások
+            </summary>
+        </member>
+        <member name="M:BlockShop2.NewProduct.SetComboBox">
+            <summary>
+            Termék név kombó box beállítása
+            </summary>
+        </member>
+        <member name="M:BlockShop2.NewProduct.CheckData(System.Object,System.EventArgs)">
+            <summary>
+            Mentés gomb elérhetővé tétele
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="F:BlockShop2.NewProduct._regex">
+            <summary>
+            Csak számok regex minta
+            </summary>
+        </member>
+        <member name="M:BlockShop2.NewProduct.IsTextAllowed(System.String)">
+            <summary>
+            Kapott szöveg alapján döntés hogy engedélyezett e (_regex minta felhasználásával)
+            </summary>
+            <param name="text">Ellenőrizendő szöveg</param>
+            <returns></returns>
+        </member>
+        <member name="M:BlockShop2.NewProduct.With_PreviewTextInput(System.Object,System.Windows.Input.TextCompositionEventArgs)">
+            <summary>
+            Eseménykezelő a szöveg bevitel előtti ellenőrzéséhez
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:BlockShop2.NewProduct.FinishedEntry">
+            <summary>
+            Eseménykezelő hívása ablak bezárásához
+            </summary>
+        </member>
+        <member name="M:BlockShop2.NewProduct.Save_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Mentés gomb eseménykezelője
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:BlockShop2.NewProduct.Cancel_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Mégse gomb eseménykezelője
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:BlockShop2.NewProduct.TBname_SelectionChanged(System.Object,System.Windows.Controls.SelectionChangedEventArgs)">
+            <summary>
+            Név combobox selectionchanged eseménykezelője
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:BlockShop2.NewProduct.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:BlockShop2.ShowPrintBlock">
+            <summary>
+            Interaction logic for ShowPrintBlock.xaml
+            </summary>
+            <summary>
+            ShowPrintBlock
+            </summary>
+        </member>
+        <member name="M:BlockShop2.ShowPrintBlock.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Models.BlockItem">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
+            <summary>
+            GeneratedInternalTypeHelper
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
+            <summary>
+            CreateInstance
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            GetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            SetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
+            <summary>
+            CreateDelegate
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
+            <summary>
+            AddEventHandler
+            </summary>
+        </member>
+    </members>
+</doc>
